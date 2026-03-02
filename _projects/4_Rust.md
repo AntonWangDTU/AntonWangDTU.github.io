@@ -31,6 +31,8 @@ I was very much in doubt of how to begin with rust and what my initial way into 
 
 ## Code example
 
+
+
 \```rust
 fn main() {
     println!("Hello, Rust!");
