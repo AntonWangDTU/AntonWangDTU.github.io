@@ -29,6 +29,9 @@ latest_posts:
 
 Hello and welcome to my Website!
 
-My name is Anton and i will use this website to post various things such as my rust journey and other topics.
+My name is Anton and you can find more information about me, my projects (primarily my rust learning journey), publications(master thesis for now), and future blog posts. 
 
-Hope you enjoy!
+My [CV](https://antonwangdtu.github.io/cv/) is also available here.
+
+Stay tuned and hope you enjoy!
+
