@@ -18,7 +18,7 @@ ninja.data = [{
           },
         },{id: "nav-projects",
           title: "projects",
-          description: "My projects",
+          description: "A growing collection of your cool projects.",
           section: "Navigation",
           handler: () => {
             window.location.href = "/projects/";
@@ -73,11 +73,36 @@ ninja.data = [{
             window.location.href = "/blog/2015/post/";
           
         },
-      },{id: "books-the-godfather",
-          title: 'The Godfather',
+      },{id: "books-dune",
+          title: 'Dune',
           description: "",
           section: "Books",handler: () => {
-              window.location.href = "/books/the_godfather/";
+              window.location.href = "/books/DUNE/";
+            },},{id: "books-afdelingen-for-magisk-tænkning",
+          title: 'Afdelingen for magisk tænkning',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/afdelingen-for-magisk/";
+            },},{id: "books-empire-of-ai",
+          title: 'Empire of AI',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/empire-of-ai/";
+            },},{id: "books-kafka-on-the-shore",
+          title: 'Kafka on the Shore',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/kafka-on-the-shore/";
+            },},{id: "books-norwegian-wood",
+          title: 'Norwegian Wood',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/norwegian-wood/";
+            },},{id: "books-vi-de-druknede",
+          title: 'Vi de druknede',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/vi-de-druknede/";
             },},{id: "news-a-simple-inline-announcement",
           title: 'A simple inline announcement.',
           description: "",
