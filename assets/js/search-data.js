@@ -146,7 +146,7 @@ ninja.data = [{
               window.location.href = "/projects/5_DL_project/";
             },},{id: "projects-end-to-end-mlops-pipeline",
           title: 'End-to-end MLOps Pipeline',
-          description: "A production-ready machine learning service built with MLflow, FastAPI, and Docker.",
+          description: "A production-ready machine learning service built with FastAPI and Docker.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/6_MLOps/";
             },},{id: "teachings-data-science-fundamentals",
