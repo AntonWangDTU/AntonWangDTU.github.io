@@ -40,7 +40,7 @@ The app returns both a prediction and a probability score, and includes a simple
 
 1. Clone the repository:
 ```bash
-git clone git@github-anton:AntonWangDTU/MLOps_HeartR.git
+git clone https://github.com/AntonWangDTU/MLOps_HeartR
 cd MLOps_HeartR
 ```
 
