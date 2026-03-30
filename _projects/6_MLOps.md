@@ -1,13 +1,12 @@
 ---
 layout: page
 title: End-to-end MLOps Pipeline
-description: A production-ready machine learning service built with MLflow, FastAPI, and Docker.
+description: A production-ready machine learning service built with FastAPI and Docker.
 img: assets/img/projects/MLOps.jpg
 importance: 1
 category: work
 related_publications: false
 ---
-
 <div class="row justify-content-sm-center">
     <div class="col-sm-6 mt-3 mt-md-0">
         {% include figure.liquid loading="eager" path="assets/img/projects/MLOps.png" title="example image" class="img-fluid rounded z-depth-1" %}
@@ -18,43 +17,40 @@ related_publications: false
 
 ## Overview
 
-This project demonstrates an end-to-end machine learning pipeline with a focus on production readiness. The goal was to go beyond model training and build the infrastructure needed to track, serve, and deploy a machine learning model in a reproducible way.
+This project demonstrates a production-ready machine learning pipeline for heart disease risk prediction. The goal was to go beyond model training and build the infrastructure needed to serve and deploy a model in a reproducible, containerized way.
 
-The project uses heart disease risk prediction as the prediction task, but the architecture is designed to be dataset-agnostic.
+The architecture is designed to be dataset-agnostic and can be adapted to other prediction tasks with minimal changes.
 
 ## Stack
 
-- **MLflow** — experiment tracking and model registry
-- **FastAPI** — REST API for model serving
-- **Docker + docker-compose** — containerization and orchestration
+- **FastAPI** — REST API for model serving and web interface
+- **Docker** — containerization for portable, reproducible deployment
 - **scikit-learn** — model training
-- **Python 3.11**
+- **Python 3.12**
 
 ## Architecture
 
-The pipeline consists of two containerized services orchestrated with docker-compose:
+The app exposes two interfaces:
 
-1. An **MLflow tracking server** that logs experiment runs, parameters, metrics, and model artifacts to a persistent local volume
-2. A **FastAPI application** that loads the production-stage model from the MLflow registry at startup and exposes a `/predict` endpoint
+1. A **web UI** at the root endpoint for interactive predictions via a browser form
+2. A **`/predict` REST endpoint** that accepts a JSON payload and returns a prediction with probability
 
-The entire stack can be started with a single command:
-
+The entire service runs in a single Docker container and can be started with:
 ```bash
-docker-compose up
+docker build -t heart-predictor .
+docker run -p 8000:8000 heart-predictor
 ```
 
 ## Usage
 
-Once running, the `/predict` endpoint accepts a JSON payload and returns a prediction:
-
+Once running, the `/predict` endpoint accepts 7 patient features and returns a prediction:
 ```bash
 curl -X POST http://localhost:8000/predict \
-  -H "Content-Type: application/json" \
-  -d '{"age": 55, "cholesterol": 240, "trestbps": 130, "thalach": 150}'
+  -d "age=55&sex=1&cp=2&trestbps=130&chol=240&thalach=150&exang=0"
 ```
 
-The MLflow UI is accessible at `localhost:5000` and shows all logged experiment runs.
+The web interface is accessible at `http://localhost:8000`.
 
 ## Repository
 
-The full code is available on [GitHub](https://github.com/AntonWangDTU/MLOps_project).
+The full code is available on [GitHub](https://github.com/AntonWangDTU/MLOps_HeartR).
