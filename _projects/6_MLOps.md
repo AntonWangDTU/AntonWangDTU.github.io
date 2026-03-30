@@ -1,7 +1,7 @@
 ---
 layout: page
-title: End-to-end MLOps Pipeline
-description: A production-ready machine learning service built with FastAPI and Docker.
+title: Heart Disease Predictor
+description: A machine learning service for heart disease risk prediction, built with FastAPI and Docker.
 img: assets/img/projects/MLOps.jpg
 importance: 1
 category: work
@@ -17,40 +17,49 @@ related_publications: false
 
 ## Overview
 
-This project demonstrates a production-ready machine learning pipeline for heart disease risk prediction. The goal was to go beyond model training and build the infrastructure needed to serve and deploy a model in a reproducible, containerized way.
+A FastAPI application that predicts the risk of heart disease based on patient data, packaged in Docker for easy deployment anywhere.
 
-The architecture is designed to be dataset-agnostic and can be adapted to other prediction tasks with minimal changes.
+## Features
+
+Predictions are based on 7 key patient features:
+
+- `age`, `sex`, `cp` (chest pain type), `trestbps` (resting blood pressure), `chol` (cholesterol), `thalach` (max heart rate), `exang` (exercise-induced angina)
+
+The app returns both a prediction and a probability score, and includes a simple web interface for interactive use.
 
 ## Stack
 
-- **FastAPI** — REST API for model serving and web interface
-- **Docker** — containerization for portable, reproducible deployment
+- **FastAPI** — REST API and web interface
+- **Docker** — containerization for portable deployment
 - **scikit-learn** — model training
 - **Python 3.12**
 
-## Architecture
+## Getting Started
 
-The app exposes two interfaces:
+### With Docker (recommended)
 
-1. A **web UI** at the root endpoint for interactive predictions via a browser form
-2. A **`/predict` REST endpoint** that accepts a JSON payload and returns a prediction with probability
+1. Clone the repository:
+```bash
+git clone git@github-anton:AntonWangDTU/MLOps_HeartR.git
+cd MLOps_HeartR
+```
 
-The entire service runs in a single Docker container and can be started with:
+2. Build the image:
 ```bash
 docker build -t heart-predictor .
+```
+
+3. Run the container:
+```bash
 docker run -p 8000:8000 heart-predictor
 ```
 
-## Usage
+4. Open your browser at [http://localhost:8000](http://localhost:8000) to use the web interface.
 
-Once running, the `/predict` endpoint accepts 7 patient features and returns a prediction:
-```bash
-curl -X POST http://localhost:8000/predict \
-  -d "age=55&sex=1&cp=2&trestbps=130&chol=240&thalach=150&exang=0"
-```
+### Without Docker
 
-The web interface is accessible at `http://localhost:8000`.
+Requires Python 3.12 installed locally. Install dependencies and run the app directly.
 
 ## Repository
 
-The full code is available on [GitHub](https://github.com/AntonWangDTU/MLOps_HeartR).
+The full code is available on [GitHub](https://github.com/AntonWangDTU/MLOps_project).
