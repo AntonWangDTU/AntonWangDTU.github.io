@@ -4,9 +4,10 @@ permalink: /cv/
 title: CV
 nav: true
 nav_order: 5
-cv_pdf: /assets/rendercv/rendercv_output/example_pdf # you can also use external links here
+cv_pdf: /assets/rendercv/rendercv_output/CV-1.pdf # you can also use external links here
 cv_format: rendercv # options: rendercv, jsonresume
 description: Have a look at my CV :-)
 toc:
   sidebar: left
 ---
+
