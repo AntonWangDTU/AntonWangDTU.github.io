@@ -73,7 +73,27 @@ ninja.data = [{
             window.location.href = "/blog/2015/post/";
           
         },
-      },{id: "books-dune",
+      },{id: "books-dune-messiah",
+          title: 'Dune Messiah',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/dune-messiah/";
+            },},{id: "books-hard-boiled-wonderland-and-the-end-of-the-world",
+          title: 'Hard-boiled wonderland and the end of the world',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/hard-boiled-wonderland-and-the-end-of-the-world/";
+            },},{id: "books-volvo-lastvagnar",
+          title: 'Volvo lastvagnar',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/volvo-lastvagnar/";
+            },},{id: "books-doppler",
+          title: 'Doppler',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/doppler/";
+            },},{id: "books-dune",
           title: 'Dune',
           description: "",
           section: "Books",handler: () => {
@@ -144,7 +164,7 @@ ninja.data = [{
         title: 'CV',
         section: 'Socials',
         handler: () => {
-          window.open("/assets/rendercv/rendercv_output/Anton_Wang_Strandberg_CV.pdf", "_blank");
+          window.open("/assets/rendercv/rendercv_output/CV-1.pdf", "_blank");
         },
       },{
         id: 'social-email',
