@@ -149,6 +149,11 @@ ninja.data = [{
           description: "A machine learning service for heart disease risk prediction, built with FastAPI and Docker.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/6_MLOps/";
+            },},{id: "projects-jobnet-scraper",
+          title: 'Jobnet Scraper',
+          description: "Automated job scraper and LLM-based matcher for Jobnet.dk — scrapes postings by keyword and scores each one against your profile.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/7_JobSearchPipeline/";
             },},{id: "teachings-data-science-fundamentals",
           title: 'Data Science Fundamentals',
           description: "This course covers the foundational aspects of data science, including data collection, cleaning, analysis, and visualization. Students will learn practical skills for working with real-world datasets.",
