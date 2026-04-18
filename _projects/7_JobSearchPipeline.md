@@ -68,4 +68,4 @@ KEYWORDS = [
 
 ## Repository
 
-The full code is available on [GitHub](https://github.com/AntonWangDTU/job-search-pipeline).
+The full code is available on [GitHub](https://github.com/AntonWangDTU/jobnet_scraper).
