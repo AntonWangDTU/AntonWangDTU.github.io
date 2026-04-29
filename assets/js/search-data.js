@@ -146,7 +146,7 @@ ninja.data = [{
               window.location.href = "/projects/5_DL_project/";
             },},{id: "projects-heart-disease-predictor",
           title: 'Heart Disease Predictor',
-          description: "A machine learning service for heart disease risk prediction, built with FastAPI and Docker.",
+          description: "A live heart disease prediction service — FastAPI backend deployed on Railway, called in real-time from this page via TypeScript.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/6_MLOps/";
             },},{id: "projects-jobnet-scraper",
