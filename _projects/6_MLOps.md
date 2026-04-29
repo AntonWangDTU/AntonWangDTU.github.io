@@ -1,19 +1,12 @@
 ---
 layout: page
-title: Heart Disease Predictor
+title: "❤️ Heart Disease Predictor 💔"
 description: A live heart disease prediction service — FastAPI backend deployed on Railway, called in real-time from this page via TypeScript.
 img: assets/img/projects/MLOps.jpg
 importance: 1
 category: work
 related_publications: false
 ---
-<div class="row justify-content-sm-center">
-    <div class="col-sm-6 mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/projects/HeartR.png" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-</div>
 
 ## Live Demo
 
@@ -82,6 +75,13 @@ This project is fully deployed end-to-end:
 The full code is available on [GitHub](https://github.com/AntonWangDTU/MLOps_HeartR).
 
 ## Running Locally
+<div class="row justify-content-sm-center">
+    <div class="col-sm-6 mt-3 mt-md-0">
+        {% include figure.liquid loading="eager" path="assets/img/projects/HeartR.png" title="example image" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+<div class="caption">
+</div>
 
 ### With Docker (recommended)
 
