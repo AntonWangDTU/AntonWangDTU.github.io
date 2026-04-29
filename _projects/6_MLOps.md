@@ -15,6 +15,45 @@ related_publications: false
 <div class="caption">
 </div>
 
+## Live Demo
+
+<div style="background: var(--global-bg-color); border: 1px solid var(--global-divider-color); border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem;">
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+    <div>
+      <label style="display:block; font-size:0.85rem; margin-bottom:0.25rem;">Age</label>
+      <input id="age" type="number" value="55" min="1" max="120" style="width:100%; padding:0.4rem; border-radius:4px; border:1px solid var(--global-divider-color); background:var(--global-bg-color); color:var(--global-text-color);">
+    </div>
+    <div>
+      <label style="display:block; font-size:0.85rem; margin-bottom:0.25rem;">Sex (0=F, 1=M)</label>
+      <input id="sex" type="number" value="1" min="0" max="1" style="width:100%; padding:0.4rem; border-radius:4px; border:1px solid var(--global-divider-color); background:var(--global-bg-color); color:var(--global-text-color);">
+    </div>
+    <div>
+      <label style="display:block; font-size:0.85rem; margin-bottom:0.25rem;">Chest Pain Type (0–3)</label>
+      <input id="cp" type="number" value="1" min="0" max="3" style="width:100%; padding:0.4rem; border-radius:4px; border:1px solid var(--global-divider-color); background:var(--global-bg-color); color:var(--global-text-color);">
+    </div>
+    <div>
+      <label style="display:block; font-size:0.85rem; margin-bottom:0.25rem;">Resting BP (mmHg)</label>
+      <input id="trestbps" type="number" value="130" style="width:100%; padding:0.4rem; border-radius:4px; border:1px solid var(--global-divider-color); background:var(--global-bg-color); color:var(--global-text-color);">
+    </div>
+    <div>
+      <label style="display:block; font-size:0.85rem; margin-bottom:0.25rem;">Cholesterol (mg/dl)</label>
+      <input id="chol" type="number" value="250" style="width:100%; padding:0.4rem; border-radius:4px; border:1px solid var(--global-divider-color); background:var(--global-bg-color); color:var(--global-text-color);">
+    </div>
+    <div>
+      <label style="display:block; font-size:0.85rem; margin-bottom:0.25rem;">Max Heart Rate</label>
+      <input id="thalach" type="number" value="150" style="width:100%; padding:0.4rem; border-radius:4px; border:1px solid var(--global-divider-color); background:var(--global-bg-color); color:var(--global-text-color);">
+    </div>
+    <div>
+      <label style="display:block; font-size:0.85rem; margin-bottom:0.25rem;">Exercise Angina (0=No, 1=Yes)</label>
+      <input id="exang" type="number" value="0" min="0" max="1" style="width:100%; padding:0.4rem; border-radius:4px; border:1px solid var(--global-divider-color); background:var(--global-bg-color); color:var(--global-text-color);">
+    </div>
+  </div>
+  <button id="heart-submit" style="margin-top:1rem; padding:0.5rem 1.5rem; border-radius:4px; border:none; background:#e74c3c; color:white; font-size:1rem; cursor:pointer;">Predict</button>
+  <div id="heart-result"></div>
+</div>
+
+<script src="/assets/js/heart-predictor.js"></script>
+
 ## Overview
 
 A FastAPI application that predicts the risk of heart disease based on patient data, packaged in Docker for easy deployment anywhere.
