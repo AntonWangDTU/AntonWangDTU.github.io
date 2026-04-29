@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Heart Disease Predictor
-description: A machine learning service for heart disease risk prediction, built with FastAPI and Docker.
+description: A live heart disease prediction service — FastAPI backend deployed on Railway, called in real-time from this page via TypeScript.
 img: assets/img/projects/MLOps.jpg
 importance: 1
 category: work
@@ -56,24 +56,32 @@ related_publications: false
 
 ## Overview
 
-A FastAPI application that predicts the risk of heart disease based on patient data, packaged in Docker for easy deployment anywhere.
+A heart disease risk prediction service — trained with scikit-learn, served via FastAPI, containerized with Docker, and deployed to the cloud. The live demo above runs against a real API endpoint hosted on Railway, called directly from this page using TypeScript.
 
-## Features
+The model takes 7 patient features and returns a binary prediction (high/low risk) along with a probability score.
 
-Predictions are based on 7 key patient features:
+## Architecture
 
-- `age`, `sex`, `cp` (chest pain type), `trestbps` (resting blood pressure), `chol` (cholesterol), `thalach` (max heart rate), `exang` (exercise-induced angina)
+This project is fully deployed end-to-end:
 
-The app returns both a prediction and a probability score, and includes a simple web interface for interactive use.
+- The **FastAPI** backend runs in a Docker container on **Railway**, exposed as a public HTTPS endpoint
+- This website calls the API via **TypeScript** (`fetch`) — no middleman, no mock data
+- The frontend form is embedded directly in this page and sends real POST requests to the live service
 
 ## Stack
 
-- **FastAPI** — REST API and web interface
-- **Docker** — containerization for portable deployment
-- **scikit-learn** — model training
+- **FastAPI** — REST API (`/predict` endpoint)
+- **Docker** — containerized for reproducible deployment
+- **Railway** — cloud hosting with automatic deploys from GitHub
+- **scikit-learn** — logistic regression model trained on the Cleveland Heart Disease dataset
+- **TypeScript** — frontend form compiled to JS, served via GitHub Pages
 - **Python 3.12**
 
-## Getting Started
+## Repository
+
+The full code is available on [GitHub](https://github.com/AntonWangDTU/MLOps_HeartR).
+
+## Running Locally
 
 ### With Docker (recommended)
 
@@ -93,48 +101,13 @@ docker build -t heart-predictor .
 docker run -p 8000:8000 heart-predictor
 ```
 
-4. Open your browser at [http://localhost:8000](http://localhost:8000) to use the web interface.
+4. Open [http://localhost:8000](http://localhost:8000) in your browser.
 
 ### Without Docker
 
-Requires Python 3.12 installed locally. Install dependencies and run the app directly.
+Requires Python 3.12. Install dependencies with `uv` and run:
 
-## Repository
-
-The full code is available on [GitHub](https://github.com/AntonWangDTU/MLOps_project).
-
-## How to use
-
-1. **Insert your values** 
-
-<div class="row justify-content-sm-center">
-    <div class="col-sm-6 mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/projects/HeartR1.png" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-</div>
-
-2. **Press predict** 
-
-
-<div class="row justify-content-sm-center">
-    <div class="col-sm-6 mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/projects/HeartR2.png" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-</div>
-
-
-3. **View your patients risk of having heart disease** 
-
-
-<div class="row justify-content-sm-center">
-    <div class="col-sm-6 mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/projects/HeartR3.png" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-</div>
-
+```bash
+uv sync
+uv run uvicorn src.mlops_ha.api:app --host 0.0.0.0 --port 8000
+```
