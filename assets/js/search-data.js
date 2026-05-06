@@ -154,6 +154,11 @@ ninja.data = [{
           description: "Automated job scraper and LLM-based matcher for Jobnet.dk — scrapes postings by keyword and scores each one against your profile.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/7_JobSearchPipeline/";
+            },},{id: "projects-dev-environment-arch-tmux-neovim",
+          title: 'Dev Environment: Arch + tmux + Neovim',
+          description: "My personal development setup — Arch Linux as the base, tmux for session management, and Neovim as the primary editor.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/8_DevSetup/";
             },},{id: "teachings-data-science-fundamentals",
           title: 'Data Science Fundamentals',
           description: "This course covers the foundational aspects of data science, including data collection, cleaning, analysis, and visualization. Students will learn practical skills for working with real-world datasets.",
