@@ -159,6 +159,11 @@ ninja.data = [{
           description: "My personal development setup — Arch Linux as the base, tmux for session management, and Neovim as the primary editor.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/8_DevSetup/";
+            },},{id: "projects-ibis-field-trial-tracker",
+          title: 'IBIS Field Trial Tracker',
+          description: "A research data management dashboard for the IBIS project — tracking field experiments, ETL pipeline status, and data quality across international partners.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/9_IBISTracker/";
             },},{id: "teachings-data-science-fundamentals",
           title: 'Data Science Fundamentals',
           description: "This course covers the foundational aspects of data science, including data collection, cleaning, analysis, and visualization. Students will learn practical skills for working with real-world datasets.",
