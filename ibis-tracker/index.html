@@ -306,6 +306,46 @@
     footer a { color: var(--blue-lt); text-decoration: none; }
     footer a:hover { text-decoration: underline; }
 
+    /* ── Detail modal ── */
+    .detail-modal {
+      width: 720px;
+      max-height: 88vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .detail-modal .modal-body {
+      overflow-y: auto;
+      flex: 1;
+      padding: 0;
+    }
+    .detail-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border-bottom: 1px solid var(--gray-2);
+    }
+    .detail-meta-item {
+      padding: 14px 18px;
+      border-right: 1px solid var(--gray-2);
+    }
+    .detail-meta-item:last-child { border-right: none; }
+    .detail-meta-label { font-size: 10px; text-transform: uppercase; letter-spacing: .5px; color: var(--text-lt); margin-bottom: 2px; }
+    .detail-meta-value { font-size: 14px; font-weight: 600; }
+
+    .detail-chart-wrap { padding: 16px 18px; border-bottom: 1px solid var(--gray-2); }
+    .detail-chart-wrap canvas { max-height: 180px; }
+
+    .detail-table-wrap { padding: 0 18px 16px; }
+    .detail-table-wrap h4 { font-size: 12px; text-transform: uppercase; letter-spacing: .5px; color: var(--text-lt); padding: 14px 0 8px; }
+
+    .meas-table { font-size: 12px; }
+    .meas-table thead th { font-size: 10px; padding: 6px 8px; }
+    .meas-table tbody td { padding: 7px 8px; }
+    .no-meas { text-align: center; color: var(--text-lt); padding: 28px; font-size: 13px; }
+
+    tbody tr.clickable { cursor: pointer; }
+    .click-hint { font-size: 11px; color: var(--text-lt); margin-top: 8px; text-align: right; }
+
     @media (max-width: 900px) {
       .stats-grid    { grid-template-columns: repeat(2, 1fr); }
       .partners-grid { grid-template-columns: repeat(2, 1fr); }
@@ -523,6 +563,7 @@
           </thead>
           <tbody id="exp-tbody"></tbody>
         </table>
+        <div class="click-hint">Click any row to view measurements</div>
       </div>
     </div>
 
@@ -668,6 +709,35 @@
 
 <div id="toast">✓ Experiment logged successfully</div>
 
+<!-- ── Experiment Detail Modal ── -->
+<div class="modal-overlay" id="detailOverlay" onclick="closeDetailOnOverlay(event)">
+  <div class="modal detail-modal">
+    <div class="modal-header">
+      <div>
+        <h2 id="detail-title">Experiment Detail</h2>
+        <div style="font-size:11px;opacity:.75;margin-top:2px" id="detail-subtitle"></div>
+      </div>
+      <button class="modal-close" onclick="closeDetail()">✕</button>
+    </div>
+    <div class="modal-body">
+      <!-- Metadata strip -->
+      <div class="detail-meta-grid" id="detail-meta"></div>
+      <!-- Growth chart -->
+      <div class="detail-chart-wrap">
+        <canvas id="detailChart"></canvas>
+      </div>
+      <!-- Measurements table -->
+      <div class="detail-table-wrap">
+        <h4>Measurement Records</h4>
+        <div id="detail-table-body"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" style="background:var(--gray-2);color:var(--text)" onclick="closeDetail()">Close</button>
+    </div>
+  </div>
+</div>
+
 <script>
 // ── Data ──────────────────────────────────────────────────────────────────────
 const EXPERIMENTS = [
@@ -696,6 +766,75 @@ const EXPERIMENTS = [
 ];
 
 const FLAG = { DK:"🇩🇰", KE:"🇰🇪", IN:"🇮🇳", BR:"🇧🇷" };
+
+// ── Measurement data (keyed by experiment_id) ─────────────────────────────────
+// Columns: measured_at, plant_height_cm, chlorophyll_spad, shoot_dw_g, root_dw_g, yield_kg_per_ha
+const MEASUREMENTS = {
+  "KE-2024-001": [
+    { date:"2024-05-15", height:78.2, chlorophyll:42.1, shoot:18.4, root:6.2,  yield:null   },
+    { date:"2024-06-15", height:112.6,chlorophyll:45.0, shoot:27.1, root:8.8,  yield:null   },
+    { date:"2024-07-01", height:142.5,chlorophyll:48.3, shoot:38.7, root:11.4, yield:4850.0 },
+  ],
+  "KE-2024-002": [
+    { date:"2024-05-15", height:71.0, chlorophyll:38.5, shoot:15.2, root:5.1,  yield:null   },
+    { date:"2024-06-15", height:98.4, chlorophyll:40.1, shoot:22.3, root:7.2,  yield:null   },
+    { date:"2024-07-01", height:128.3,chlorophyll:41.2, shoot:31.5, root:9.3,  yield:3920.0 },
+  ],
+  "KE-2024-003": [
+    { date:"2024-05-20", height:62.0, chlorophyll:36.4, shoot:12.8, root:4.5,  yield:null   },
+    { date:"2024-06-20", height:94.1, chlorophyll:40.2, shoot:21.0, root:7.0,  yield:null   },
+    { date:"2024-07-20", height:118.5,chlorophyll:44.7, shoot:32.1, root:9.8,  yield:3640.0 },
+  ],
+  "KE-2024-004": [
+    { date:"2024-05-20", height:58.3, chlorophyll:33.2, shoot:11.1, root:3.9,  yield:null   },
+    { date:"2024-06-20", height:85.7, chlorophyll:36.8, shoot:18.4, root:6.1,  yield:null   },
+    { date:"2024-07-20", height:105.2,chlorophyll:39.5, shoot:26.3, root:8.0,  yield:3010.0 },
+  ],
+  "DK-2024-001": [
+    { date:"2024-03-01", height:18.4, chlorophyll:32.1, shoot:4.2,  root:1.8,  yield:null   },
+    { date:"2024-04-15", height:55.2, chlorophyll:41.3, shoot:14.6, root:4.9,  yield:null   },
+    { date:"2024-06-01", height:88.7, chlorophyll:47.8, shoot:28.3, root:8.2,  yield:null   },
+    { date:"2024-07-15", height:102.1,chlorophyll:49.2, shoot:36.5, root:10.1, yield:5620.0 },
+  ],
+  "DK-2024-002": [
+    { date:"2024-03-01", height:17.1, chlorophyll:30.5, shoot:3.8,  root:1.5,  yield:null   },
+    { date:"2024-04-15", height:49.6, chlorophyll:38.7, shoot:12.1, root:4.1,  yield:null   },
+    { date:"2024-06-01", height:79.3, chlorophyll:43.2, shoot:23.4, root:7.0,  yield:null   },
+    { date:"2024-07-15", height:91.8, chlorophyll:44.9, shoot:30.2, root:8.8,  yield:4810.0 },
+  ],
+  "IN-2024-001": [
+    { date:"2025-01-15", height:55.3, chlorophyll:40.8, shoot:12.3, root:3.9,  yield:null   },
+    { date:"2025-02-01", height:74.8, chlorophyll:43.5, shoot:18.9, root:5.6,  yield:null   },
+    { date:"2025-03-01", height:88.4, chlorophyll:46.2, shoot:24.1, root:7.2,  yield:3650.0 },
+  ],
+  "IN-2024-002": [
+    { date:"2025-01-15", height:52.1, chlorophyll:38.1, shoot:11.5, root:3.5,  yield:null   },
+    { date:"2025-02-01", height:68.4, chlorophyll:40.3, shoot:16.2, root:4.9,  yield:null   },
+    { date:"2025-03-01", height:82.0, chlorophyll:42.5, shoot:21.8, root:6.5,  yield:3210.0 },
+  ],
+  "BR-2024-001": [
+    { date:"2024-10-20", height:48.2, chlorophyll:39.4, shoot:11.2, root:3.8,  yield:null   },
+    { date:"2024-11-20", height:82.6, chlorophyll:44.1, shoot:22.5, root:7.1,  yield:null   },
+    { date:"2024-12-20", height:108.3,chlorophyll:47.6, shoot:33.8, root:9.9,  yield:null   },
+    { date:"2025-02-01", height:114.7,chlorophyll:48.9, shoot:38.2, root:11.2, yield:4920.0 },
+  ],
+  "BR-2024-002": [
+    { date:"2024-10-20", height:44.5, chlorophyll:36.8, shoot:9.8,  root:3.2,  yield:null   },
+    { date:"2024-11-20", height:74.1, chlorophyll:40.5, shoot:19.2, root:6.2,  yield:null   },
+    { date:"2024-12-20", height:96.2, chlorophyll:43.2, shoot:28.4, root:8.4,  yield:null   },
+    { date:"2025-02-01", height:101.4,chlorophyll:44.7, shoot:32.6, root:9.7,  yield:4150.0 },
+  ],
+  "BR-2024-003": [
+    { date:"2024-10-15", height:52.1, chlorophyll:38.2, shoot:12.4, root:4.1,  yield:null   },
+    { date:"2024-11-15", height:96.4, chlorophyll:44.8, shoot:26.3, root:8.3,  yield:null   },
+    { date:"2025-01-15", height:138.2,chlorophyll:49.1, shoot:40.1, root:12.0, yield:5180.0 },
+  ],
+  "BR-2024-004": [
+    { date:"2024-10-15", height:49.3, chlorophyll:35.5, shoot:10.8, root:3.6,  yield:null   },
+    { date:"2024-11-15", height:86.7, chlorophyll:40.2, shoot:21.6, root:7.0,  yield:null   },
+    { date:"2025-01-15", height:120.4,chlorophyll:44.3, shoot:32.5, root:9.8,  yield:4340.0 },
+  ],
+};
 
 // ── Table rendering ───────────────────────────────────────────────────────────
 function statusBadge(s) {
@@ -727,7 +866,7 @@ function renderTable() {
     return;
   }
   tbody.innerHTML = rows.map(e => `
-    <tr>
+    <tr class="clickable" onclick="openDetail('${e.id}')">
       <td><span class="exp-id">${e.id}</span></td>
       <td>${FLAG[e.country]} ${e.site}</td>
       <td>${e.crop}</td>
@@ -832,6 +971,138 @@ function showToast(msg) {
   t.textContent = "✓ " + msg;
   t.classList.add("show");
   setTimeout(() => t.classList.remove("show"), 3000);
+}
+
+// ── Detail modal ─────────────────────────────────────────────────────────────
+let activeDetailChart = null;
+
+function openDetail(id) {
+  const exp  = EXPERIMENTS.find(e => e.id === id);
+  const meas = MEASUREMENTS[id] || [];
+
+  // Header
+  document.getElementById("detail-title").textContent = id;
+  document.getElementById("detail-subtitle").textContent =
+    `${FLAG[exp.country]} ${exp.site} · ${exp.crop} · ${exp.treatment}`;
+
+  // Meta strip
+  document.getElementById("detail-meta").innerHTML = `
+    <div class="detail-meta-item">
+      <div class="detail-meta-label">Strain</div>
+      <div class="detail-meta-value" style="font-family:monospace;font-size:13px">${exp.strain || '—'}</div>
+    </div>
+    <div class="detail-meta-item">
+      <div class="detail-meta-label">Started</div>
+      <div class="detail-meta-value">${exp.start}</div>
+    </div>
+    <div class="detail-meta-item">
+      <div class="detail-meta-label">Status</div>
+      <div class="detail-meta-value">${exp.status}</div>
+    </div>
+    <div class="detail-meta-item">
+      <div class="detail-meta-label">Timepoints</div>
+      <div class="detail-meta-value">${meas.length}</div>
+    </div>
+  `;
+
+  // Growth chart
+  if (activeDetailChart) { activeDetailChart.destroy(); activeDetailChart = null; }
+
+  if (meas.length > 0) {
+    const ctx = document.getElementById("detailChart").getContext("2d");
+    activeDetailChart = new Chart(ctx, {
+      type: "line",
+      data: {
+        labels: meas.map(m => m.date),
+        datasets: [
+          {
+            label: "Plant height (cm)",
+            data: meas.map(m => m.height),
+            borderColor: "#2e86c1",
+            backgroundColor: "#2e86c120",
+            tension: 0.3,
+            fill: true,
+            yAxisID: "yHeight",
+            pointRadius: 5,
+          },
+          {
+            label: "Chlorophyll SPAD",
+            data: meas.map(m => m.chlorophyll),
+            borderColor: "#1e8449",
+            backgroundColor: "transparent",
+            tension: 0.3,
+            borderDash: [5,3],
+            yAxisID: "ySpad",
+            pointRadius: 5,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        interaction: { mode: "index", intersect: false },
+        plugins: {
+          legend: { position: "bottom", labels: { font: { size: 11 }, padding: 12 } },
+        },
+        scales: {
+          yHeight: {
+            type: "linear", position: "left",
+            title: { display: true, text: "Height (cm)", font: { size: 10 } },
+            ticks: { font: { size: 10 } },
+            grid: { color: "#f0f0f0" },
+          },
+          ySpad: {
+            type: "linear", position: "right",
+            title: { display: true, text: "SPAD", font: { size: 10 } },
+            ticks: { font: { size: 10 } },
+            grid: { drawOnChartArea: false },
+          },
+          x: { ticks: { font: { size: 10 } }, grid: { display: false } },
+        },
+      },
+    });
+  }
+
+  // Measurements table
+  const tableWrap = document.getElementById("detail-table-body");
+  if (meas.length === 0) {
+    tableWrap.innerHTML = `<div class="no-meas">No measurements recorded yet for this experiment.</div>`;
+  } else {
+    tableWrap.innerHTML = `
+      <table class="meas-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Height (cm)</th>
+            <th>Chlorophyll (SPAD)</th>
+            <th>Shoot DW (g)</th>
+            <th>Root DW (g)</th>
+            <th>Yield (kg/ha)</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${meas.map(m => `
+            <tr>
+              <td>${m.date}</td>
+              <td>${m.height.toFixed(1)}</td>
+              <td>${m.chlorophyll.toFixed(1)}</td>
+              <td>${m.shoot.toFixed(1)}</td>
+              <td>${m.root.toFixed(1)}</td>
+              <td>${m.yield != null ? m.yield.toLocaleString() : '<span style="color:var(--gray-3)">—</span>'}</td>
+            </tr>`).join("")}
+        </tbody>
+      </table>
+    `;
+  }
+
+  document.getElementById("detailOverlay").classList.add("open");
+}
+
+function closeDetail() {
+  document.getElementById("detailOverlay").classList.remove("open");
+}
+function closeDetailOnOverlay(e) {
+  if (e.target === document.getElementById("detailOverlay")) closeDetail();
 }
 
 // ── Init ──────────────────────────────────────────────────────────────────────
