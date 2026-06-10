@@ -127,7 +127,12 @@ ninja.data = [{
             },},{id: "news-a-simple-inline-announcement-with-markdown-emoji-sparkles-smile",
           title: 'A simple inline announcement with Markdown emoji! :sparkles: :smile:',
           description: "",
-          section: "News",},{id: "projects-rust",
+          section: "News",},{id: "projects-thesis",
+          title: 'Thesis',
+          description: "Cell Type Annotation in Transcriptionally Homogeneous Single-Cell Data — An Evaluation of Differential Expression Analysis and Advanced Embedding Methods",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/10_Thesis/";
+            },},{id: "projects-rust",
           title: 'Rust',
           description: "My rust coding journey",
           section: "Projects",handler: () => {
