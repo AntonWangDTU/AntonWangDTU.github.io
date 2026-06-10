@@ -6,6 +6,6 @@ img: assets/img/DL_project_front.jpg
 importance: 1
 category: work
 related_publications: true
-redirect: /assets/pdf/DL_project.pdf
+redirect: /assets/pdf/DL_project-1.pdf
 ---
 
