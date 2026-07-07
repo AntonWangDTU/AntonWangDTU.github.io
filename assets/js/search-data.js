@@ -177,7 +177,7 @@ ninja.data = [{
         title: 'CV',
         section: 'Socials',
         handler: () => {
-          window.open("/assets/rendercv/rendercv_output/CV-1.pdf", "_blank");
+          window.open("/assets/rendercv/rendercv_output/CV_generic.pdf", "_blank");
         },
       },{
         id: 'social-email',
