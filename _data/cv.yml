@@ -1,6 +1,6 @@
 cv:
   name: Anton Wang Strandberg
-  label: Bioinformatician
+  label: Data Scientist
   email: anton.w.Strandberg@gmail.com 
   location: Copenhagen 
   image: "Anton.jpg"
@@ -54,6 +54,25 @@ cv:
           - "Thesis: A Study on Possible Effects of Single Prophage Inserts on a Reduced Genome Escherichia Coli"
 
     Experience:
+      - company: Overskud.dk
+        position: Software Developer(Part time)
+        location: Copenhagen, Denmark
+        start_date: 2026-04
+        end_date: present
+        highlights:
+          - Full-stack development with Go microservices, PostgreSQL, and React/TypeScript
+          - Database optimization, normalization, and SQL query tuning
+          - CI/CD pipelines with GitHub Actions and Docker Compose orchestration
+          - Collaborative development in a fast-paced startup environment
+
+      - company: Bispebjerg Hospital
+        position: Data Scientist
+        location: Copenhagen, Denmark
+        start_date: 2026-09
+        end_date: present
+        highlights:
+          - NLP of clinical health data
+
       - company: 4Life Solutions Aps
         position: Research Assistant
         location: Copenhagen, Denmark
@@ -88,15 +107,25 @@ cv:
           - Delivered engaging presentations as a Beer Sommelier, sharpening ability to clearly convey information to audiences of varying prior knowledge
 
     Skills:
-      - name: Programming Languages
-        level: Advanced
+      - name: Programming
         icon: fa-solid fa-code
-        keywords: "Python, R, C++, mySQL, Unix/Bash, LaTeX, SLURM"
+        keywords: "Python (advanced), R, Bash, SQL, Go, C++, TypeScript, Rust (learning)"
 
-      - name: Bioinformatics
-        level: Advanced
-        icon: fa-solid fa-dna
-        keywords: "scRNA-seq, HPC pipelines, generative models, transcriptomics, VAE, diffusion models"
+      - name: Machine Learning
+        icon: fa-solid fa-brain
+        keywords: "Deep learning, PyTorch, HPC, LLM API integrations"
+
+      - name: Data & Databases
+        icon: fa-solid fa-database
+        keywords: "PostgreSQL, SQL, Data pipelines, Pandas, NumPy, Data visualization"
+
+      - name: DevOps & Infrastructure
+        icon: fa-solid fa-server
+        keywords: "Docker, Docker Compose, Git, GitHub Actions, HPC / SLURM, FastAPI"
+
+      - name: Operating Systems
+        icon: fa-brands fa-linux
+        keywords: "Linux (Arch, daily driver), Unix / CLI proficient"
 
     Languages:
       - name: Danish
