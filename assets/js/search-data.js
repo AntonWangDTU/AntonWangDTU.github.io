@@ -116,6 +116,16 @@ ninja.data = [{
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/vi-de-druknede/";
+            },},{id: "books-fakta-om-finland",
+          title: 'Fakta om Finland',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/fakta-om-finland/";
+            },},{id: "books-vandringer-med-et-æsel-i-cevennerne",
+          title: 'Vandringer med et æsel i Cevennerne',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/vandringer-med-et-aesel-i-cevennerne/";
             },},{id: "news-a-simple-inline-announcement",
           title: 'A simple inline announcement.',
           description: "",
